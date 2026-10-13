@@ -38,10 +38,22 @@ function createPlayer(name) {
 const game = (() => {
     const player1 = createPlayer("One");
     const player2 = createPlayer("Two");
+    let win;
     player1.setChance();
 
+    const cells = document.querySelectorAll(".cell");
+
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].addEventListener("click", () => {
+            const col = i % 3;
+            const row = Math.floor(i / 3);
+
+            update(row, col);
+        });
+    }
+
     player1.selectMarker("X");
-    player2.selectMarker("Y");
+    player2.selectMarker("O");
 
     let gameState = [
         [0, 0, 0],
@@ -62,10 +74,13 @@ const game = (() => {
             console.log("Spot is Filled");
         } else {
             gameState[i][j] = marker;
+            cells[3 * i + j].textContent = marker;
         }
 
         player1.setChance();
         player2.setChance();
+
+        check(marker);
     }
 
     function check(marker) {
@@ -78,21 +93,48 @@ const game = (() => {
                 gameState[0][0] === marker && gameState[1][1] === marker && gameState[2][2] === marker
             ) {
                 console.log("Something is fishy");
-                return marker;
+                win = marker;
+                endGame();
+                reset();
             }
         }
         console.log("No one is winning mate");
         return false;
     };
 
+    function endGame() {
+        cells.forEach((cell) => {
+            cell.classList.toggle('cell-fill');
+        });
+    }
 
+    function reset() {
+        win = undefined;
+        cells.forEach((cell) => {
+            cell.textContent = "";
+            cell.classList.toggle('cell-fill');
+        });
+        gameState = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ];
+
+    };
 
     return { player1, player2, update, check };
 })();
 
-game.update(0, 0);
-game.update(2, 2);
-game.update(1, 0);
-game.update(1, 2);
-game.update(2, 0);
-console.log(game.check('X'));
+
+// function round(){
+
+// }
+
+
+// game.update(0, 0);
+// game.update(2, 2);
+// game.update(1, 0);
+// game.update(1, 2);
+// game.update(2, 0);
+// console.log(game.check('X'));
+// console.log(game.check('Y'));

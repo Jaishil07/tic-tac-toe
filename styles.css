@@ -35,6 +35,12 @@ h1 {
     color: #2A7B9B;
 }
 
+.cell-fill {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
 .row1, .row2 {
     border-bottom: 5px solid white;
 }
