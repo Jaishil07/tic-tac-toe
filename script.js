@@ -32,14 +32,39 @@ function createPlayer(name) {
         return chance;
     }
 
-    return { playerName, selectMarker, getMarker, addScore, getScore, setChance, getChance };
+    function resetChance() {
+        chance = false;
+    }
+
+    return { playerName, selectMarker, getMarker, addScore, getScore, setChance, getChance, resetChance };
 };
 
 const game = (() => {
-    const player1 = createPlayer("One");
-    const player2 = createPlayer("Two");
+
+    const player1 = createPlayer("Biblo");
+    const player2 = createPlayer("Frodo");
+    const modalButton = document.querySelector("#mbtn");
+    modalButton.addEventListener("click", getName);
+
+    getName();
+
+
+    const turn = document.querySelector(".turn");
+    turn.textContent = 'X';
+
+    function setName(name1 = "Biblo", name2 = "Frodo") {
+        player1.playerName = name1;
+        player2.playerName = name2;
+    }
+
+
     let win;
     player1.setChance();
+
+    const winner = document.querySelector("#game-result");
+    const button = document.querySelector("#btn");
+    button.addEventListener("click", reset);
+
 
     const cells = document.querySelectorAll(".cell");
 
@@ -63,11 +88,14 @@ const game = (() => {
 
     function update(i, j) {
         let marker;
+        let name;
 
         if (player1.getChance()) {
             marker = player1.getMarker();
+            name = player1.playerName;
         } else {
             marker = player2.getMarker();
+            name = player2.playerName;
         }
 
         if (gameState[i][j]) {
@@ -75,15 +103,22 @@ const game = (() => {
         } else {
             gameState[i][j] = marker;
             cells[3 * i + j].textContent = marker;
+            cells[3 * i + j].classList.add("cell-fill");
         }
 
         player1.setChance();
         player2.setChance();
 
-        check(marker);
+        if (player1.getChance()) {
+            turn.textContent = player1.getMarker();
+        } else {
+            turn.textContent = player2.getMarker();
+        }
+
+        check(marker, name);
     }
 
-    function check(marker) {
+    function check(marker, name) {
 
         for (let i = 0; i < 3; i++) {
             if (gameState[i][0] === marker && gameState[i][1] === marker && gameState[i][2] === marker
@@ -91,28 +126,23 @@ const game = (() => {
                 gameState[0][i] === marker && gameState[1][i] === marker && gameState[2][i] === marker
                 ||
                 gameState[0][0] === marker && gameState[1][1] === marker && gameState[2][2] === marker
+                ||
+                gameState[0][2] === marker && gameState[1][1] === marker && gameState[2][0] === marker
             ) {
-                console.log("Something is fishy");
                 win = marker;
-                endGame();
-                reset();
+
+
+                winner.textContent = `${name} wins !`;
             }
         }
-        console.log("No one is winning mate");
         return false;
     };
-
-    function endGame() {
-        cells.forEach((cell) => {
-            cell.classList.toggle('cell-fill');
-        });
-    }
 
     function reset() {
         win = undefined;
         cells.forEach((cell) => {
             cell.textContent = "";
-            cell.classList.toggle('cell-fill');
+            cell.classList.remove('cell-fill');
         });
         gameState = [
             [0, 0, 0],
@@ -120,21 +150,36 @@ const game = (() => {
             [0, 0, 0]
         ];
 
+        winner.textContent = "";
+
+        player1.resetChance();
+        player2.resetChance();
+
+        player1.setChance();
     };
 
-    return { player1, player2, update, check };
+
+
+    return { player1, player2, update, check, setName };
 })();
 
 
-// function round(){
+function getName() {
+    const modal = document.querySelector("dialog");
+    modal.showModal();
 
-// }
 
+    const submit = document.querySelector("#btn-modal");
+    submit.addEventListener("click", (e)=>{
+        e.preventDefault();
 
-// game.update(0, 0);
-// game.update(2, 2);
-// game.update(1, 0);
-// game.update(1, 2);
-// game.update(2, 0);
-// console.log(game.check('X'));
-// console.log(game.check('Y'));
+        const player1 = document.querySelector("#p1").value || "Bilbo";
+        const player2 = document.querySelector("#p2").value || "Frodo";
+
+        game.setName(player1, player2);
+        modal.close();
+    });
+
+    const closeButton = document.querySelector("#close-modal");
+    closeButton.addEventListener("click", () => modal.close());
+}

@@ -21,8 +21,13 @@ main {
     margin: 50px auto;
 }
 
-h1 {
+h1,
+p {
     text-align: center;
+}
+
+p {
+    font-size: 1.1rem;
 }
 
 .cell {
@@ -33,18 +38,124 @@ h1 {
     font-family: Arial, Helvetica, sans-serif;
 
     color: #2A7B9B;
+    cursor: cell;
 }
 
 .cell-fill {
     pointer-events: none;
-    cursor: not-allowed;
+    cursor: wait;
 }
 
 
-.row1, .row2 {
+.row1,
+.row2 {
     border-bottom: 5px solid white;
 }
 
-.col1, .col2 {
+.col1,
+.col2 {
     border-right: 5px solid white;
+}
+
+
+button {
+    background-color: #2A7B9B;
+    color: white;
+    padding: 10px;
+    border: none;
+}
+
+button:hover {
+    outline: 2px solid black;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px;
+}
+
+dialog {
+    background: #fff;
+    /* background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 0%); */
+
+    margin: auto;
+    padding: 15px;
+
+    width: 500px;
+    height: 220px;
+
+}
+
+.dialog {
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+    margin: 10px auto;
+
+    font-size: 1.1rem;
+}
+
+#btn-modal {
+    flex: 0 0 auto;
+    width: 100px;
+}
+
+input[type="text"] {
+    font-size: 1.1rem;
+
+    border: none;
+    outline: none;
+
+    border-bottom: 1px solid black;
+}
+
+input[type="text"]::placeholder {
+    opacity: 0.8;
+}
+
+.dialog>h2 {
+    font-size: 1.25rem;
+    margin-bottom: 25px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#close-modal {
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.15rem;
+    align-self: flex-end;
+    padding: 0;
+}
+
+#close-modal:hover {
+    outline: none;
+    font-size: 1.25rem;
 }

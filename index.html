@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,15 @@
     <link rel="stylesheet" href="styles.css">
     <script type="module" src="script.js"></script>
 </head>
+
 <body>
     <h1>Tic-Tac-Toe</h1>
+
+    <div class="btn">
+        <button type="button" id="mbtn">Set Name</button>
+    </div>
+
+    <p>Turn: <span class="turn"></span></p>
 
     <main>
         <div class="cell row1 col1"></div>
@@ -21,5 +29,34 @@
         <div class="cell row3 col2"></div>
         <div class="cell row3 col3"></div>
     </main>
+
+    <div class="game-info">
+        <button id="btn" type="button">Reset Game</button>
+        <h2 id="game-result"></h2>
+    </div>
+
+    <dialog>
+        <div class="dialog">
+            <div class="row">
+                <h2>Enter the name of players 1 and 2</h2>
+                <button id="close-modal">X</button>
+            </div>
+
+            <form>
+                <div class="row">
+                    <label for="player1">Player1: </label>
+                    <input type="text" id="p1" name="player1" placeholder="Biblo">
+                </div>
+
+                <div class="row">
+                    <label for="player2">Player2: </label>
+                    <input type="text" id="p2" name="player2" placeholder="Frodo">
+                </div>
+
+                <button id="btn-modal">Submit</button>
+            </form>
+        </div>
+    </dialog>
 </body>
+
 </html>
