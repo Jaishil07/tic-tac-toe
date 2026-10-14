@@ -41,7 +41,7 @@ function createPlayer(name) {
 
 const game = (() => {
 
-    const player1 = createPlayer("Biblo");
+    const player1 = createPlayer("Bilbo");
     const player2 = createPlayer("Frodo");
     const modalButton = document.querySelector("#mbtn");
     modalButton.addEventListener("click", getName);
@@ -52,7 +52,7 @@ const game = (() => {
     const turn = document.querySelector(".turn");
     turn.textContent = 'X';
 
-    function setName(name1 = "Biblo", name2 = "Frodo") {
+    function setName(name1 = "Bilbo", name2 = "Frodo") {
         player1.playerName = name1;
         player2.playerName = name2;
     }
@@ -119,23 +119,61 @@ const game = (() => {
     }
 
     function check(marker, name) {
+        if (gameState[0][0] === marker && gameState[1][1] === marker && gameState[2][2] === marker) {
+            cells[0 + 0].classList.add("cell-won");
+            cells[3 + 1].classList.add("cell-won");
+            cells[6 + 2].classList.add("cell-won");
+
+            win = marker;
+            winner.textContent = `${name} wins !`;
+
+            cells.forEach((cell) => {
+                cell.classList.add("cell-fill");
+            });
+        }
+
+        if (gameState[0][2] === marker && gameState[1][1] === marker && gameState[2][0] === marker) {
+            cells[0 + 2].classList.add("cell-won");
+            cells[3 + 1].classList.add("cell-won");
+            cells[6 + 0].classList.add("cell-won");
+
+            win = marker;
+            winner.textContent = `${name} wins !`;
+
+            cells.forEach((cell) => {
+                cell.classList.add("cell-fill");
+            });
+        }
 
         for (let i = 0; i < 3; i++) {
-            if (gameState[i][0] === marker && gameState[i][1] === marker && gameState[i][2] === marker
-                ||
-                gameState[0][i] === marker && gameState[1][i] === marker && gameState[2][i] === marker
-                ||
-                gameState[0][0] === marker && gameState[1][1] === marker && gameState[2][2] === marker
-                ||
-                gameState[0][2] === marker && gameState[1][1] === marker && gameState[2][0] === marker
-            ) {
+            //Check For row
+            if (gameState[i][0] === marker && gameState[i][1] === marker && gameState[i][2] === marker) {
+                cells[3 * i + 0].classList.add("cell-won");
+                cells[3 * i + 1].classList.add("cell-won");
+                cells[3 * i + 2].classList.add("cell-won");
+
                 win = marker;
-
-
                 winner.textContent = `${name} wins !`;
+
+                cells.forEach((cell) => {
+                    cell.classList.add("cell-fill");
+                });
+            }
+
+            //Check for Column
+            if (gameState[0][i] === marker && gameState[1][i] === marker && gameState[2][i] === marker) {
+                cells[0 + i].classList.add("cell-won");
+                cells[3 + i].classList.add("cell-won");
+                cells[6 + i].classList.add("cell-won");
+
+                win = marker;
+                winner.textContent = `${name} wins !`;
+
+                cells.forEach((cell) => {
+                    cell.classList.add("cell-fill");
+                });
             }
         }
-        return false;
     };
 
     function reset() {
@@ -143,6 +181,7 @@ const game = (() => {
         cells.forEach((cell) => {
             cell.textContent = "";
             cell.classList.remove('cell-fill');
+            cell.classList.remove('cell-won');
         });
         gameState = [
             [0, 0, 0],
@@ -170,7 +209,7 @@ function getName() {
 
 
     const submit = document.querySelector("#btn-modal");
-    submit.addEventListener("click", (e)=>{
+    submit.addEventListener("click", (e) => {
         e.preventDefault();
 
         const player1 = document.querySelector("#p1").value || "Bilbo";

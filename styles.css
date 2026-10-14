@@ -1,3 +1,12 @@
+:root {
+    --main-background: #19233C;
+    --main-text: #EDEDFF;
+    --border-color: #00FFCC;
+    --win: #FF00F8;
+    --main-button: #8080FF;
+    --turn: #00FFF8;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -5,9 +14,10 @@
 }
 
 body {
-    background: #2A7B9B;
-    background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 0%);
+    background-color: var(--main-background);
+    /* background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 0%); */
 
+    color: var(--main-text);
     width: 75%;
     margin: 0px auto;
 }
@@ -15,7 +25,7 @@ body {
 main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-rows: repeat(3, 120px);
 
     width: 50%;
     margin: 50px auto;
@@ -37,9 +47,10 @@ p {
     font-size: 50px;
     font-family: Arial, Helvetica, sans-serif;
 
-    color: #2A7B9B;
+    color: white;
     cursor: cell;
 }
+
 
 .cell-fill {
     pointer-events: none;
@@ -49,24 +60,26 @@ p {
 
 .row1,
 .row2 {
-    border-bottom: 5px solid white;
+    border-bottom: 5px solid var(--border-color);
 }
 
 .col1,
 .col2 {
-    border-right: 5px solid white;
+    border-right: 5px solid var(--border-color);
 }
 
 
 button {
-    background-color: #2A7B9B;
+    background-color: var(--main-button);
     color: white;
     padding: 10px;
     border: none;
+
+    border-radius: 10px;
 }
 
 button:hover {
-    outline: 2px solid black;
+    outline: 2px solid var(--main-text);
 }
 
 .game-info {
@@ -81,8 +94,11 @@ button:hover {
 
 .btn {
     display: flex;
-    justify-content: center;
-    margin: 20px 0px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    width: 50%;
+    margin: 20px auto;
 }
 
 dialog {
@@ -90,7 +106,6 @@ dialog {
     /* background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 0%); */
 
     margin: auto;
-    padding: 15px;
 
     width: 500px;
     height: 200px;
@@ -98,6 +113,7 @@ dialog {
 }
 
 .dialog {
+    padding: 15px;
 
     display: flex;
     flex-direction: column;
@@ -158,4 +174,21 @@ input[type="text"]::placeholder {
 #close-modal:hover {
     outline: none;
     font-size: 1.25rem;
+}
+
+.cell-won {
+    color: var(--win);
+}
+
+hr {
+    border-color: var(--win);
+    margin: 10px 100px;
+}
+
+.turn {
+    color: var(--turn);
+}
+
+h1 {
+    margin: 10px auto;
 }
