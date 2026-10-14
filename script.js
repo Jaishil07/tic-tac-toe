@@ -138,7 +138,7 @@ const game = (() => {
             cells[6 + 0].classList.add("cell-won");
 
             win = marker;
-            winner.textContent = `${name} wins !`;
+            winner.textContent = `${name} wins!`;
 
             cells.forEach((cell) => {
                 cell.classList.add("cell-fill");
@@ -206,7 +206,8 @@ const game = (() => {
 function getName() {
     const modal = document.querySelector("dialog");
     modal.showModal();
-
+    const focusElement = document.getElementById("p1");
+    p1.focus();
 
     const submit = document.querySelector("#btn-modal");
     submit.addEventListener("click", (e) => {

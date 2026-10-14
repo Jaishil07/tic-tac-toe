@@ -3,7 +3,7 @@
     --main-text: #EDEDFF;
     --border-color: #00FFCC;
     --win: #FF00F8;
-    --main-button: #8080FF;
+    --main-button: #FFFF00;
     --turn: #00FFF8;
 }
 
@@ -14,6 +14,8 @@
 }
 
 body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
     background-color: var(--main-background);
     /* background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 0%); */
 
@@ -25,9 +27,10 @@ body {
 main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 120px);
+    grid-template-rows: repeat(3, 1fr);
 
     width: 50%;
+    aspect-ratio: 1/1;
     margin: 50px auto;
 }
 
@@ -48,15 +51,13 @@ p {
     font-family: Arial, Helvetica, sans-serif;
 
     color: white;
-    cursor: cell;
+    cursor: pointer;
 }
 
 
 .cell-fill {
     pointer-events: none;
-    cursor: wait;
 }
-
 
 .row1,
 .row2 {
@@ -71,7 +72,7 @@ p {
 
 button {
     background-color: var(--main-button);
-    color: white;
+    color: black;
     padding: 10px;
     border: none;
 
@@ -110,6 +111,8 @@ dialog {
     width: 500px;
     height: 200px;
 
+    position: relative;
+
 }
 
 .dialog {
@@ -130,6 +133,8 @@ form {
     gap: 10px;
     margin: 10px auto;
 
+    width: 100%;
+
     font-size: 1.1rem;
 }
 
@@ -145,6 +150,8 @@ input[type="text"] {
     outline: none;
 
     border-bottom: 1px solid black;
+
+    margin-left: 10px;
 }
 
 input[type="text"]::placeholder {
@@ -158,7 +165,7 @@ input[type="text"]::placeholder {
 
 .row {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
@@ -166,14 +173,18 @@ input[type="text"]::placeholder {
     background-color: #fff;
     color: #000;
     font-weight: bold;
-    font-size: 1.15rem;
+    font-size: 1.35rem;
     align-self: flex-end;
     padding: 0;
+
+    position: absolute;
+    right: 20px;
+    top: 10px;
 }
 
 #close-modal:hover {
     outline: none;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
 .cell-won {
@@ -191,4 +202,8 @@ hr {
 
 h1 {
     margin: 10px auto;
+}
+
+label {
+    margin-left: 10px;
 }
